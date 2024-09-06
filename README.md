@@ -1,2 +1,2 @@
-# c-digo_C
+# codigo_C
  Código para PIM-2
