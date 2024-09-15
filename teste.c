@@ -235,7 +235,7 @@ void EditarCadastro(HWND hwnd)
         MessageBox(hwnd, "Erro ao criar arquivo temporário.", "Erro", MB_OK | MB_ICONERROR);
         return;
     }
-    int escolha = menu();
+    int escolha;
     // Perguntar ao usuário qual campo deseja editar
     switch (escolha)
     {
