@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build C Program with GUI",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.exe",
+                "${file}",
+                "-mwindows"  // Esta opção garante que o aplicativo seja compilado como um GUI
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

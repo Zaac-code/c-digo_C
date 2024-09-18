@@ -1,0 +1,2 @@
+// myresource.rc
+IDI_MYICON ICON "path/to/your/icon.ico"
