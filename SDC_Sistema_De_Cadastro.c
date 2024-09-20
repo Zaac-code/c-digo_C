@@ -4,11 +4,8 @@
 #include <string.h>
 #include <direct.h>
 
-// Identificadores para a caixa de entrada (input box)
-//#define IDD_INPUTBOX 101
-//#define IDC_EDIT_INPUT 1001
 
-// Outros identificadores
+//=========================================================identificadores========================================================================//
 #define MAX_LINE_LENGTH 256
 #define ID_EDIT_NAME 1
 #define ID_EDIT_ADDRESS 2
@@ -24,23 +21,29 @@
 #define ID_BUTTON_ATT 12
 #define ID_EDIT_CAMPO 13
 #define MAX_BUFFER 1024
+//===============================================================================================================================================//
 
+//=====================================================variáveis Auxiliares Globais==============================================================//
 char name_edit[MAX_BUFFER] = {0};
 char cod[MAX_BUFFER] = {0};
-
-
-//====================================================variáveis globais=========================================================================//
-char mkd_original[] = "C:\\Users\\Zaac\\OneDrive\\"; //caminho para o diretório definido como variável global (método temporário)
 char mkd[1024];
+int escolha=0;
+//===============================================================================================================================================//
+
+//==========================================================variáveis globais====================================================================//
+char mkd_original[] = "C:\\Users\\Zaac\\OneDrive\\"; //caminho para o diretório definido como variável global (método temporário)
 char name[1024], address[1024], cpf[1024], phone[1024], past[1024],filePath[2048];
 char *campo;
-int escolha=0;
+//===============================================================================================================================================//
 
+//=============================================Protótipos das funções que criam de janelas=======================================================//
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPSTR lpCmdLine,int nCmdShow);
 int WINAPI WinMain2(HINSTANCE hInstance2, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WindowEdit(HWND hwnd2, UINT uMsg, WPARAM wParam, LPARAM lParam);
+//===============================================================================================================================================//
 
+//========================================================Protótipos das funções=================================================================//
 void CadastrarCliente(HWND hwnd);
 void LerArquivo(HWND hwnd);
 void ExcluirCadastro(HWND hwnd);
@@ -94,8 +97,6 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     (void)lParam;
     strcpy(mkd, mkd_original);
-    //static HWND hEditName, hEditAddress, hEditCPF, hEditPhone, hEditPast;
-    //static HWND hButtonCadastro, hButtonLeitura, hButtonEdicao, hButtonExclusao;
 
     switch (uMsg)
     {
@@ -156,6 +157,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 //===============================================================================================================================================//
+
 //=========================================================função de cadastro de clientes========================================================//
 void CadastrarCliente(HWND hwnd)
 {
@@ -226,9 +228,6 @@ void LerArquivo(HWND hwnd)
         MessageBox(hwnd, "Erro ao abrir o arquivo.", "Erro", MB_OK | MB_ICONERROR);
     }
 }
-//====================================================Funçao que edita cadastro de clientes======================================================//
-// Função para editar o campo selecionado
-
 //===============================================================================================================================================//
 
 //====================================================Função que exclui cadastro de clientes=====================================================//
@@ -254,7 +253,8 @@ void ExcluirCadastro(HWND hwnd)
     }
 }
 //===============================================================================================================================================//
-// Função de processamento da janela de edição
+
+//==================================================Função de processamento da janela de edição==================================================//
 int WINAPI WinMain2(HINSTANCE hInstance2, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
     (void)hPrevInstance;
@@ -295,15 +295,16 @@ int WINAPI WinMain2(HINSTANCE hInstance2, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
     return 0;
 }
+//===============================================================================================================================================//
 
-// Função de processamento do diálogo de edição
+//==================================================Função de processamento do diálogo de edição=================================================//
 LRESULT CALLBACK WindowEdit(HWND hwnd2, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     (void)lParam;
     switch (uMsg)
     {
         case WM_CREATE:
-            CreateWindow("STATIC", "Codigo do Campo: digite 1 p/ editar Nome | 2 p/ editar Endereco | 3 p/ editar Telefone | 4 p/ editar CPF", WS_VISIBLE | WS_CHILD, 50, 50, 800, 20, hwnd2, NULL, NULL, NULL);
+            CreateWindow("STATIC", "Codigo do Campo: digite 1 p/ alterar Nome | 2 p/ alterar Endereco | 3 p/ alterar Telefone | 4 p/ alterar CPF", WS_VISIBLE | WS_CHILD, 50, 50, 800, 20, hwnd2, NULL, NULL, NULL);
             CreateWindow("STATIC", "Codigo do campo:", WS_VISIBLE | WS_CHILD, 10, 100, 150, 20, hwnd2, NULL, NULL, NULL);
             CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 155, 100, 200, 20, hwnd2, (HMENU) ID_EDIT_COD, NULL, NULL);
             CreateWindow("STATIC", "Novo valor do campo:", WS_VISIBLE | WS_CHILD, 10, 125, 250, 20, hwnd2, NULL, NULL, NULL);
@@ -415,3 +416,4 @@ LRESULT CALLBACK WindowEdit(HWND hwnd2, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     return 0;
 }
+//===============================================================================================================================================//
