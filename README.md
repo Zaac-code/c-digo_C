@@ -10,7 +10,7 @@ onde é possível cadastrar, ler os arquivos, editar todos os campos individualm
 
 1. Clone o repositório para sua máquina
 2. Abra o código .c em um editor de código como o VScode ou DevC++
-3. Edite a variável (mkd_original[] = "C:\\Users\\Zaac\\OneDrive\\") para um caminho escolhido por você --para funcionar lembre-se de colocar o "\" duas vezes, assim como o caminho atual
+3. Edite a variável (mkd_original[] = "C:\\Users\\Zaac\\OneDrive\\") para um caminho escolhido por você --para funcionar lembre-se de colocar o \\ duas vezes, assim como o caminho atual
 4. Preencha os campos da tela de cadastro (o CPF e nome da pasta é Obrigatório preencher)
 5. para ler o cadastro, excluir e editar é necessário digitar o CPF e nome da pasta onde está a ficha
  
