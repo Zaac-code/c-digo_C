@@ -2,11 +2,11 @@
  Código para Projeto acadêmico 
  SDC - Sistema De Cadastro 
 
-//==============================================Descrição=====================================================//
-    Este é um projeto de cadastro permite o usuário manipular as fichas de cadastro totalmente pelo software
+//Descrição
+Este é um projeto de cadastro permite o usuário manipular as fichas de cadastro totalmente pelo software
 onde é possível cadastrar, ler os arquivos, editar todos os campos individualmente e excluir o cadastro.
 
-//==============================================Como Usar====================================================//
+//Como Usar
 
 1. Clone o repositório para sua máquina
 2. Abra o código .c em um editor de código como o VScode ou DevC++
@@ -16,7 +16,7 @@ onde é possível cadastrar, ler os arquivos, editar todos os campos individualm
  
 
 
-//========================================Melhorias e observações============================================//
+//Melhorias e observações
 17/09/2024
 ---- versão beta com possibilidade de gerar executável
 ---- sem solução para criação da variável MKD, que permanece com caminho fixo
