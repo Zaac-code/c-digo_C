@@ -31,9 +31,10 @@ int escolha=0;
 //===============================================================================================================================================//
 
 //==========================================================variáveis globais====================================================================//
-char mkd_original[] = "C:\\Users\\Zaac\\OneDrive\\"; //caminho para o diretório definido como variável global (método temporário)
+char userProfile[200];
 char name[1024], address[1024], cpf[1024], phone[1024], past[1024],filePath[2048];
 char *campo;
+FILE *file;
 //===============================================================================================================================================//
 
 //=============================================Protótipos das funções que criam de janelas=======================================================//
@@ -47,6 +48,7 @@ LRESULT CALLBACK WindowEdit(HWND hwnd2, UINT uMsg, WPARAM wParam, LPARAM lParam)
 void CadastrarCliente(HWND hwnd);
 void LerArquivo(HWND hwnd);
 void ExcluirCadastro(HWND hwnd);
+void cria_pasta();
 //===============================================================================================================================================//
 
 //==========================================================Função principal=====================================================================//
@@ -96,7 +98,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     (void)lParam;
-    strcpy(mkd, mkd_original);
 
     switch (uMsg)
     {
@@ -181,9 +182,8 @@ void CadastrarCliente(HWND hwnd)
     cpf[strcspn(cpf, "\n")] = '\0';
     past[strcspn(past, "\n")] = '\0';
     // Criar o caminho do arquivo
-    snprintf(filePath, sizeof(filePath), "%s%s\\%s.txt", mkd, past, cpf);
-    
-    FILE *file;
+    cria_pasta();
+
     file = fopen(filePath, "w");
     if (file!=NULL)
     {
@@ -201,26 +201,21 @@ void CadastrarCliente(HWND hwnd)
 //====================================Função que ler arquivos txt dentro de um diretório escolhido pelo usuário===================================//
 void LerArquivo(HWND hwnd)
 {
-    char cpf[1024];
-    char filePath[2048];
     char buffer[2048];
     HWND hLerCPF = GetDlgItem(hwnd, ID_EDIT_CPF);
 
     // Obter o CPF do controle
     GetWindowText(hLerCPF, cpf, sizeof(cpf));
     GetWindowText(GetDlgItem(hwnd, ID_EDIT_PAST), past, sizeof(past));
-
     // Criar o caminho do arquivo
-    snprintf(filePath, sizeof(filePath), "%s%s\\%s.txt", mkd, past, cpf);
-    
-    FILE *file;
+
+    cria_pasta();
     file = fopen(filePath, "r");
     if (file)
     {
         while (fgets(buffer, sizeof(buffer), file)) {
             MessageBox(hwnd, buffer, "Conteudo do Arquivo", MB_OK);
         }
-        
         fclose(file);
     }
     else
@@ -233,9 +228,6 @@ void LerArquivo(HWND hwnd)
 //====================================================Função que exclui cadastro de clientes=====================================================//
 void ExcluirCadastro(HWND hwnd)
 {
-    char cpf[1024];
-    char filePath[2048];
-
     HWND hExcluirCPF = GetDlgItem(hwnd, ID_EDIT_CPF);
     HWND hEditPastExcluir = GetDlgItem(hwnd, ID_EDIT_PAST);
 
@@ -244,8 +236,7 @@ void ExcluirCadastro(HWND hwnd)
     GetWindowText(hEditPastExcluir, past, sizeof(past));
 
     // Criar o caminho do arquivo
-    snprintf(filePath, sizeof(filePath), "%s%s\\%s.txt", mkd, past, cpf);
-
+    cria_pasta();
     if (remove(filePath) == 0) {
         MessageBox(hwnd, "Cadastro deletado com sucesso!", "Sucesso", MB_OK);
     } else {
@@ -320,10 +311,8 @@ LRESULT CALLBACK WindowEdit(HWND hwnd2, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 case ID_BUTTON_ATT:
                     GetWindowText(GetDlgItem(hwnd2, ID_EDIT_CAMPO), name_edit, sizeof(name_edit));
                     GetWindowText(GetDlgItem(hwnd2, ID_EDIT_COD), cod, sizeof(cod));
-                    FILE *file;
-                    // Criar o caminho do arquivo
-                    snprintf(filePath, sizeof(filePath), "%s%s\\%s.txt", mkd, past, cpf);
-                    printf("filepath: %s",filePath);
+                    
+                    cria_pasta();
                     file = fopen(filePath, "r");
                     if (!file)
                     {
@@ -415,5 +404,19 @@ LRESULT CALLBACK WindowEdit(HWND hwnd2, UINT uMsg, WPARAM wParam, LPARAM lParam)
     }
 
     return 0;
+}
+//===============================================================================================================================================//
+
+//===========================================================Função de criação de pastas=========================================================//
+void cria_pasta()
+{
+    memset(mkd, 0, sizeof(mkd));
+    if (GetEnvironmentVariableA("USERPROFILE", userProfile, sizeof(userProfile)) == 0){ //retorna o usuário do computador 
+    }
+    sprintf(mkd,"%s\\Documents\\%s", userProfile, past);//cria um caminho para a pasta documents com a pasta definida pelo usuário                           
+    if(CreateDirectoryA(mkd,NULL)){
+    }else{
+    }
+    snprintf(filePath, sizeof(filePath), "%s\\%s.txt", mkd, cpf);
 }
 //===============================================================================================================================================//
